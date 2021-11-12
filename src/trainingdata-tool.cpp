@@ -3,7 +3,10 @@
 #include "polyglot_lib.h"
 
 #include <cstring>
-#include <filesystem>
+//#include <filesystem>
+#include <boost/filesystem.hpp>
+namespace fs = boost::filesystem;
+
 #include <iostream>
 
 #include "PGNGame.h"
@@ -18,13 +21,13 @@ size_t dedup_uniq_buffersize = 50000;
 float dedup_q_ratio = 1.0f;
 
 inline bool file_exists(const std::string &name) {
-  auto s = std::filesystem::status(name);
-  return std::filesystem::is_regular_file(s);
+  auto s = fs::status(name);
+  return fs::is_regular_file(s);
 }
 
 inline bool directory_exists(const std::string &name) {
-  auto s = std::filesystem::status(name);
-  return std::filesystem::is_directory(s);
+  auto s = fs::status(name);
+  return fs::is_directory(s);
 }
 
 void convert_games(const std::string &pgn_file_name, Options options) {

@@ -38,8 +38,19 @@ set_target_properties(trainingdata-tool PROPERTIES
 )
 
 if (UNIX)
-    target_link_libraries(trainingdata-tool -lpthread -lstdc++fs)
+    #target_link_libraries(trainingdata-tool -lpthread -lstdc++fs)
+    target_link_libraries(trainingdata-tool -lpthread)
 endif(UNIX)
+
+set(boost_min_ver 1.50.0)
+set(boost_libs system filesystem)
+find_package(Boost ${boost_min_ver})
+
+if(Boost_FOUND)
+    find_package(Boost ${boost_min_ver} COMPONENTS ${boost_libs})
+endif()
+
+target_link_libraries(trainingdata-tool ${Boost_LIBRARIES})
 
 find_package(Boost 1.65.0)
 
